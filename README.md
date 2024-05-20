@@ -1,1 +1,1 @@
-# django-basic-structure
+# djngo-basic-structure
