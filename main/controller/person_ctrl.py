@@ -1,4 +1,3 @@
-import json
 from rest_framework import viewsets
 from rest_framework.response import Response
 from main.database.models.person_model import Person
@@ -24,11 +23,12 @@ class PersonCtrl(viewsets.ViewSet):
         return Response({"message": "Person not found"}, status=404)
 
     def create(self, request):
-        data = json.dumps(request.data)
+        data = request.data
         print(f" data, request: {data}")
-        serializer = self.serializer_class(data)
+        serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             serializer.save()
+            print(f"create, person id:{serializer.data['id']}")
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
